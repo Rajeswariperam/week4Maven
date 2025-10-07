@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {
+        maven 'MAVEN-HOME'  // Make sure this matches your Jenkins Maven tool name
+    }
+    stages {
+        stage('Clean and Clone') {
+            steps {
+                // You don't need to clone here because Jenkins automatically checks out the repo where the Jenkinsfile exists
+                bat "mvn clean"
+            }
+        }
+        stage('Install') {
+            steps {
+                bat "mvn install"
+            }
+        }
+        stage('Test') {
+            steps {
+                bat "mvn test"
+            }
+        }
+        stage('Package') {
+            steps {
+                bat "mvn package"
+            }
+        }
+    }
+}
